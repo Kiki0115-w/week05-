@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using AssignmentSystem.Services;
 using Debug = AssignmentSystem.Services.AssignmentDebugConsole;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using System;
 
 namespace Assignment
 {
@@ -70,14 +71,14 @@ namespace Assignment
                     if (key > numbers[j])
                     {
                         break;
-                    } // ��ش����͹
+                    } // ËÂØ´àÅ×èÍ¹
 
-                    // ����͹价ҧ���
+                    // àÅ×èÍ¹ä»·Ò§¢ÇÒ
                     numbers[j + 1] = numbers[j];
                     j--;
                 }
 
-                numbers[j + 1] = key; // �á
+                numbers[j + 1] = key; // á·Ã¡
             }
 
             foreach ( int n1 in numbers)
@@ -150,14 +151,14 @@ namespace Assignment
                     if (key < numbers[j])
                     {
                         break;
-                    } // ��ش����͹
+                    } // ËÂØ´àÅ×èÍ¹
 
-                    // ����͹价ҧ���
+                    // àÅ×èÍ¹ä»·Ò§¢ÇÒ
                     numbers[j + 1] = numbers[j];
                     j--;
                 }
 
-                numbers[j + 1] = key; // �á
+                numbers[j + 1] = key; // á·Ã¡
             }
 
             foreach (int n1 in numbers)
@@ -168,7 +169,22 @@ namespace Assignment
 
         public void AS04_FindTheSecondLargestNumber(int[] numbers)
         {
-            throw new System.NotImplementedException();
+            Array.Sort(numbers);
+            Array.Reverse(numbers);
+
+            int largest = numbers[0];
+            int secondLargest = int.MinValue;
+
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                if (numbers[i] < largest)
+                {
+                    secondLargest = numbers[i];
+                    break;
+                }
+            }
+
+            Debug.Log(secondLargest);
         }
 
         #endregion
@@ -177,7 +193,34 @@ namespace Assignment
 
         public void EX01_FindLongestConsecutiveSequence(int[] numbers)
         {
-            throw new System.NotImplementedException();
+            if (numbers.Length == 0)
+            {
+                Debug.Log("The longest consecutive sequence is: 0");
+                return;
+            }
+
+            Array.Sort(numbers);
+            int longest = 1;
+            int currentStreak = 1;
+
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                if (numbers[i] == numbers[i - 1])
+                {
+                    continue;
+                }
+                if (numbers[i] == numbers[i - 1] + 1)
+                {
+                    currentStreak++;
+                }
+                else
+                {
+                    currentStreak = 1;
+                }
+                longest = Math.Max(longest, currentStreak);
+            }
+
+            Debug.Log($"The longest consecutive sequence is: {longest}");
         }
 
         #endregion
